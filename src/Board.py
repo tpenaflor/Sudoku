@@ -8,13 +8,12 @@ class Board:
     Boxes = []
     Rows = []
     Cols = []
-
     cells = []
 
     def __init__(self):
-        self.Boxes = [Box(num+1) for num in range(9)]
-        self.Rows = [Row(num+1, self.Boxes) for num in range(9)]
-        self.Cols = [Column(num+1, self.Boxes) for num in range(9)]
+        self.Boxes = [Box(num) for num in range(9)]
+        self.Rows = [Row(num, self.Boxes) for num in range(9)]
+        self.Cols = [Column(num, self.Boxes) for num in range(9)]
 
     def fillTable(self, filePath):
         with open(filePath) as csvfile:
@@ -28,11 +27,24 @@ class Board:
         #      print([cell.value for cell in self.Rows[rowNum].cells])
         
         for row in self.Rows:
-            if (row.rowNum == 4) or (row.rowNum == 7): print(" ")
+            if (row.rowNum == 3) or (row.rowNum == 6): print(" ")
+            #row.detailedPrint()
             row.print()
                             
     def check(self):
         [box.check() for box in self.Boxes]
         [row.check() for row in self.Rows]
         [col.check() for col in self.Cols]
+
+    def getCells(self):
+        cells = []
+        for row in self.Rows:
+            for cell in row.cells:
+                cells.append(cell)
+
+        return cells
+
+
+
+
 
